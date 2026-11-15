@@ -34,3 +34,10 @@ Returns an array of segments. Each segment is either:
 - `{ type: 'placeholder', specifier: 's' | 'd' | 'i' }`
 
 Adjacent literal text is merged into a single literal segment. Placeholders are never merged. Throws a `TypeError` if `template` is not a string.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
